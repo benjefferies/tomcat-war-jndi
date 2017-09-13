@@ -20,6 +20,7 @@ open class Config : WebMvcConfigurerAdapter() {
     }
 
     @Bean open fun datasource() : DataSource {
+        // Get datasource from jndi
         val datasource = InitialContext().lookup("java:/comp/env/jdbc/datasource") as DataSource
         datasource.connection.prepareStatement("create table if not exists ping (counter INT);").executeUpdate()
         datasource.connection.prepareStatement("insert into ping values (0);").executeUpdate()
